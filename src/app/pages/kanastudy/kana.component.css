@@ -1,0 +1,33 @@
+.kanaGame {
+    align-content: center;
+  }
+  .title {
+    margin: 20px;
+    text-align: center;
+    font-size: 100px;
+  }
+  
+  .options {
+    margin-left: 20px;
+  }
+  .kanaMode {
+    font-size: 20px;
+  }
+  
+  .character {
+    font-size: 40vh;
+  }
+  
+  .textInput {
+    font-size: 10vh;
+  }
+  
+  .kanaField {
+    text-align: center;
+  }
+  
+  .kanaSymbol {
+    font-size: 5em;
+    text-align: center;
+  }
+  

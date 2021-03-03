@@ -1,0 +1,74 @@
+<div class="kanaGame">
+    <div *ngIf="state == stateEnum.Stopped" class="control">
+      <h3>Options:</h3>
+      <div class="options">
+        <div class="row">
+          <label
+            class="kanaMode"
+            *ngFor="let kanaMode of _kanaModes | keyvalue"
+            nz-checkbox
+            [(ngModel)]="_kanaModes[kanaMode.key]" 
+            >{{ kanaMode.key }}</label
+          >
+        </div>
+        <div class="row">
+          <label class="kanaMode" nz-checkbox [(ngModel)]="_cheats"
+            >Learning mode (Shows answers)</label
+          >
+        </div>
+        <nz-row>
+          <nz-col nzSpan="1">
+            <span>Test size</span>
+          </nz-col>
+          <nz-col nzSpan="12">
+            <nz-slider
+              [nzMin]="5"
+              [nzMax]="50"
+              [(ngModel)]="_kanaCount"
+            ></nz-slider>
+          </nz-col>
+          <nz-col nzSpan="3">
+            <nz-input-number
+              [nzMin]="5"
+              [nzMax]="50"
+              [ngStyle]="{ marginLeft: '16px' }"
+              [(ngModel)]="_kanaCount"
+            ></nz-input-number>
+          </nz-col>
+        </nz-row>
+      </div>
+  
+      <h1>Press ENTER key to start.</h1>
+    </div>
+    <div *ngIf="state == stateEnum.Started" class="kanaField">
+      <h1 class="timer">{{ timer.toFixed(2) }}</h1>
+      <h1 class="character">{{ randomKana.character }}</h1>
+      <h1 class="textInput">{{ roman }}</h1>
+      <h1 class="cheatDisplay" *ngIf="_cheats">{{ randomKana.romanization }}</h1>
+      <h1 class="score">{{ score }}</h1>
+    </div>
+  
+    <div *ngIf="state == stateEnum.Ended" class="results">
+      <h1 class="title">Results</h1>
+      <h2>Average Time: {{ avgTime.toFixed(3) }}s per Kana</h2>
+      <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32 }">
+        <div
+          nz-col
+          class="gutter-row"
+          [nzSpan]="4"
+          *ngFor="let time of kanaTimes"
+        >
+          <nz-card nzHoverable style="width: 240px" [nzCover]="coverTemplate">
+            <nz-card-meta
+              nzTitle="{{ time.character.romanization }}"
+              nzDescription="Time: {{ time.time }}s"
+            ></nz-card-meta>
+          </nz-card>
+          <ng-template #coverTemplate>
+            <h1 class="kanaSymbol">{{ time.character.character }}</h1>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+  
