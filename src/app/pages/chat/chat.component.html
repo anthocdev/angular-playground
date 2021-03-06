@@ -1,0 +1,49 @@
+<div class="panel-body" (scroll)="scrolled($event)" #scrollframe>
+    <ul class="chat">
+      <li
+        *ngFor="let message of _chatService.messageList"
+        class="right clearfix"
+        #message
+      >
+        <div class="chat-body clearfix">
+          <div class="header">
+            <strong
+              class="pull-right primary-font"
+              [ngStyle]="{
+                color: message.data.isServer ? '#DC143C' : '#000000'
+              }"
+              >{{ message.data.author }}</strong
+            >
+            <small class="text-muted"> at {{ message.data.date }} </small>
+          </div>
+          <p>
+            {{ message.data.message }}
+          </p>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="panel-footer">
+    <!-- Icon Templates -->
+    <ng-template #prefixTemplateUser><i nz-icon nzType="user"></i></ng-template>
+    <ng-template #prefixTemplateMessage><i nz-icon nzType="message"></i></ng-template>
+    <!-- Username Input -->
+    <nz-input-group [nzPrefix]="prefixTemplateUser" >
+      <input type="text" nz-input placeholder="Username" [(ngModel)]="messageObject.author" />
+    </nz-input-group>
+    <!-- Validated message input (Max 100 characters)    -->
+    <form nz-form [formGroup]="form" nzLayout="vertical">
+      <nz-form-item>
+        <nz-form-control>
+          <nz-textarea-count [nzMaxCharacterCount]="100">
+            <textarea rows="4" formControlName="message" placeholder="Enter your message..." nz-input nzAutosize [(ngModel)]="messageObject.message" (keyup.enter)="sendMsg()"></textarea>
+          </nz-textarea-count>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+    <!-- Send Message Button -->
+    <span class="input-group-btn">
+      <button nz-button nzType="primary" (click)="sendMsg()">Send Message</button>
+    </span>
+  </div>
+  

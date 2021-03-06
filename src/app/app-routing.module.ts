@@ -9,6 +9,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/kanastudy/kana.module').then((m) => m.KanaModule),
   },
+  {
+    path: 'wschat',
+    loadChildren: () =>
+      import('./pages/chat/chat.module').then((m) => m.ChatModule),
+  },
 ];
 
 @NgModule({

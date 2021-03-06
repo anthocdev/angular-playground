@@ -7,7 +7,7 @@
             [nzTrigger]="null">
     <div class="sidebar-logo">
         <img src="../assets/img/octopus.svg" alt="logo">
-        <h1>Apptopus</h1>
+        <h1>Mini Kraken</h1>
     </div>
     <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
       <li nz-submenu nzOpen nzTitle="Summary" nzIcon="coffee">
@@ -22,12 +22,18 @@
           <li nz-menu-item nzMatchRouter>
             <a routerLink="/kana">Kana Study</a>
           </li>
+          <li nz-menu-item nzMatchRouter>
+            <a routerLink="/wschat">Websocket Chat</a>
+          </li>
         </ul>
       </li>
       <li nz-submenu nzOpen nzTitle="About" nzIcon="info">
         <ul>
           <li nz-menu-item nzMatchRouter>
             <a href="https://www.cerneckis.com/" target="_blank">Antanas Cerneckis</a>
+          </li>
+          <li nz-menu-item nzMatchRouter>
+            <a href="https://www.cerneckis.com/privacy" target="_blank">Privacy Policy</a>
           </li>
         </ul>
       </li>
