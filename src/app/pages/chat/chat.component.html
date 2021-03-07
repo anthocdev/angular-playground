@@ -10,14 +10,14 @@
             <strong
               class="pull-right primary-font"
               [ngStyle]="{
-                color: message.data.isServer ? '#DC143C' : '#000000'
+                color: message.author.type == 0 ? '#DC143CCC' : '#d68c46'
               }"
-              >{{ message.data.author }}</strong
+              >{{ message.author.name }}</strong
             >
-            <small class="text-muted"> at {{ message.data.date }} </small>
+            <small class="text-muted"> at {{ message.createdAt }} </small>
           </div>
           <p>
-            {{ message.data.message }}
+            {{ message.body }}
           </p>
         </div>
       </li>
@@ -36,7 +36,7 @@
       <nz-form-item>
         <nz-form-control>
           <nz-textarea-count [nzMaxCharacterCount]="100">
-            <textarea rows="4" formControlName="message" placeholder="Enter your message..." nz-input nzAutosize [(ngModel)]="messageObject.message" (keyup.enter)="sendMsg()"></textarea>
+            <textarea rows="4" formControlName="message" placeholder="Enter your message..." nz-input nzAutosize [(ngModel)]="messageObject.message"></textarea>
           </nz-textarea-count>
         </nz-form-control>
       </nz-form-item>

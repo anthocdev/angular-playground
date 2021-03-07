@@ -2,37 +2,32 @@ import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { WebsocketService } from './websocket.service';
-import { Message, WsMessage } from './websocket.model';
+import { Message, ClientMessage, Content, ContentType } from './websocket.model';
 import { environment } from '../../../environments/environment';
 
 @Injectable()
 export class ChatService {
-  public messages: Subject<WsMessage>;
-  public messageList: WsMessage[] = [];
+  public messages: Subject<any>;
+  public messageList: Message[] = [];
 
   constructor(private _wsService: WebsocketService) {
-    this.messages = <Subject<WsMessage>>(
+    this.messages = <Subject<Content | ClientMessage>>(
       _wsService.connect(environment.WS_CHAT_URL).pipe(
         map(
-          (response: MessageEvent): WsMessage => {
-            let data = JSON.parse(response.data);
+          (response: MessageEvent): Content => {
+            let content: Content = JSON.parse(response.data);
+            console.log(content);
+            if(content.type == ContentType.Message){
+              this.messageList.push(content.data);
+              
+            }else if(content.type == ContentType.History){
+              content.data.forEach((msg: any) => {
+                
+                this.messageList.push(msg);
+              });
+            } 
 
-            if (data.type == 'message') {
-              //Individual Messages
-              this.messageList.push(data);
-            } else if (data.type == 'history') {
-              //History
-              if (data.data.length > 0) {
-                data.data.forEach((msg: any) => {
-                  console.log(msg);
-                  this.messageList.push(JSON.parse(msg));
-                });
-              }
-            }
-            return {
-              type: data.type,
-              data: data.data,
-            };
+            return content.data;
           }
         )
       )

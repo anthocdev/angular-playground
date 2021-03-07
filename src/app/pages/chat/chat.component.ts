@@ -12,7 +12,6 @@ import {
   import {
     ClientMessage,
     Message,
-    WsMessage,
   } from '../../services/wschat/websocket.model';
   @Component({
     selector: 'app-chat',
@@ -27,20 +26,18 @@ import {
     form: FormGroup;
     constructor(public _chatService: ChatService, private formBuilder: FormBuilder) {
       this.form = this.formBuilder.group({
-        comment: [null, [Validators.maxLength(100)]]
+        message: [null, [Validators.maxLength(100)]]
       });
     }
-    
+
     messageObject: ClientMessage = {
       message: '',
       author: '',
     };
   
+    /* Client to Server (Only author/message) */
     sendMsg() {
-      this._chatService.messages.next({
-        type: 'message',
-        data: this.messageObject,
-      });
+      this._chatService.messages.next(this.messageObject);
       this.messageObject.message = '';
     }
   
@@ -70,15 +67,14 @@ import {
     }
   
     ngOnInit(): void {
-      this._chatService.messages.subscribe((msg: WsMessage) => {
-        var msgContent: Message = msg.data;
+      this._chatService.messages.subscribe((msg: Message) => {
         console.log(
           'WS Server: ' +
-            msgContent.author +
+            msg.author +
             ': ' +
-            msgContent.message +
+            msg.body +
             ' at ' +
-            msgContent.date
+            msg.createdAt
         );
         console.log(this._chatService.messageList);
       });
