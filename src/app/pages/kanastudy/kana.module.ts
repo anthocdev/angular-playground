@@ -9,6 +9,7 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzSliderModule } from 'ng-zorro-antd/slider';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
     CommonModule,
     NzButtonModule,
     KanaRoutingModule,
+    NzDividerModule,
   ],
   declarations: [KanaComponent],
   exports: [KanaComponent],

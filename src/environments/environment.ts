@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  WS_CHAT_URL: 'ws://localhost:3000/chat', //Websocket Connection for Chat
+  WS_CHAT_URL: 'ws://192.168.0.13:3000/chat', //Websocket Connection for Chat
 };
 
 /*

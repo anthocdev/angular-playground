@@ -6,8 +6,7 @@ import { Observable, Observer } from 'rxjs';
   providedIn: 'root',
 })
 export class WebsocketService {
-  constructor() {
-  }
+  constructor() {}
 
   private subject!: WebSocketSubject<MessageEvent>;
 
