@@ -1,6 +1,6 @@
 <!-- Initial state & after game restart (configuration) -->
 <article nz-typography *ngIf="state == stateEnum.Stopped">
-  <h1 nz-typography>Kana Study</h1>
+  <h1 nz-typography style="color: #ee9643">Kana Study</h1>
   <p nz-typography>'Description Here'</p>
 
   <!-- Alphabet Selection-->
@@ -12,6 +12,12 @@
       [(ngModel)]="_kanaModes[kanaMode.key]"
       >{{ kanaMode.key }}</label
     >
+  </nz-row>
+  <!-- Learning Mode-->
+  <nz-row>
+    <label class="kanaMode" nz-checkbox [(ngModel)]="_cheats"
+      >Learning Mode (Display Answers)
+    </label>
   </nz-row>
   <!-- Test Size Slider -->
   <nz-row>
@@ -35,31 +41,49 @@
   <nz-divider></nz-divider>
 </article>
 <!-- Display during gameplay -->
-<article nz-typography *ngIf="state == stateEnum.Started" class="kanaField">
-  <nz-row>
-    <h1 nz-typography>{{ timer.toFixed(2) }}</h1>
+<article nz-typography *ngIf="state == stateEnum.Started" class="kanaGame">
+  <nz-row style="align-items: center">
+    <h1 class="gameTimer" nz-typography>{{ timer.toFixed(2) }}</h1>
   </nz-row>
-  <h1 class="character">{{ randomKana.character }}</h1>
-  <h1 class="textInput">{{ roman }}</h1>
-  <h1 class="cheatDisplay" *ngIf="_cheats">{{ randomKana.romanization }}</h1>
-  <h1 class="score">{{ score }}</h1>
+  <h1 class="gameChar">{{ randomKana.character }}</h1>
+  <h1 class="gameInput">{{ roman }}</h1>
+  <h1 class="gameCheat" *ngIf="_cheats">{{ randomKana.romanization }}</h1>
+  <h1 class="gameCount">{{ score }}</h1>
 </article>
 
 <!-- Results output display - End of the game -->
-<article *ngIf="state == stateEnum.Ended" class="results">
+<!-- <article *ngIf="state == stateEnum.Ended" class="results">
   <h1 class="title">Results</h1>
   <h2>Average Time: {{ avgTime.toFixed(3) }}s per Kana</h2>
   <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32 }">
-    <div nz-col class="gutter-row" [nzSpan]="4" *ngFor="let time of kanaTimes">
+    <div nz-col class="resultCard" [nzSpan]="4" *ngFor="let time of kanaTimes">
       <nz-card nzHoverable [nzCover]="coverTemplate">
+        <ng-template #coverTemplate>
+          <h1 class="kanaSymbol">{{ time.character.character }}</h1>
+        </ng-template>
         <nz-card-meta
+          class="kanaResult"
           nzTitle="{{ time.character.romanization }}"
           nzDescription="Time: {{ time.time }}s"
         ></nz-card-meta>
       </nz-card>
-      <ng-template #coverTemplate>
-        <h1 class="kanaSymbol">{{ time.character.character }}</h1>
-      </ng-template>
     </div>
   </div>
+</article> -->
+
+<article *ngIf="state == stateEnum.Ended" class="results">
+  <h1 nz-typography>Results</h1>
+  <h3 nz-typography>Average Time: {{ avgTime.toFixed(3) }}s per Kana</h3>
+  <nz-row>
+    <nz-col class="resultCard" *ngFor="let time of kanaTimes">
+      <nz-card nzHoverable>
+        <h1 class="kanaSymbol">{{ time.character.character }}</h1>
+        <nz-card-meta
+          class="kanaResult"
+          nzTitle="{{ time.character.romanization }}"
+          nzDescription="Time: {{ time.time }}s"
+        ></nz-card-meta>
+      </nz-card>
+    </nz-col>
+  </nz-row>
 </article>

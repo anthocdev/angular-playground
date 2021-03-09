@@ -31,3 +31,48 @@
     text-align: center;
   }
    */
+
+.gameChar {
+  font-size: 8vw;
+  color: #a76c35;
+}
+
+.gameInput {
+  font-size: 4vw;
+  white-space: pre-wrap;
+}
+
+.gameInput:empty {
+  margin: 12.3vw;
+}
+
+.gameTimer {
+}
+
+.gameCheat {
+  font-size: 40px;
+  color: #d38943;
+}
+
+.gameCount {
+  font-size: 40px;
+}
+
+.kanaGame {
+  align-content: center;
+  text-align: center;
+}
+
+.resultCard {
+  min-width: 150px;
+  max-width: 300px;
+  align-content: center;
+  text-align: center;
+  width: 20vw;
+  padding: 4px;
+}
+
+.kanaSymbol {
+  font-size: 4vw;
+  color: #a76c35;
+}

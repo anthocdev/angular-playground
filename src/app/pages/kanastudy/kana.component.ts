@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import katakana from '../../../assets/json/kana/katakana.json';
-import hiragana from '../../../assets/json/kana/hiragana.json';
+import katakanaStore from '../../../assets/json/kana/katakana.json';
+import hiraganaStore from '../../../assets/json/kana/hiragana.json';
 import { kana, kanaTime, GameState, kanaMode } from './kana.model';
 import { NzNotificationService } from 'ng-zorro-antd/notification';
 
@@ -18,7 +18,7 @@ export class KanaComponent implements OnInit {
   handleKeyDown(event: KeyboardEvent) {
     //Backspace override
     if (event.key == 'Enter' && this.state == GameState.Stopped) {
-      if (!this._kanaModes.hiragana && !this._kanaModes.katakana) {
+      if (!this._kanaModes.Hiragana && !this._kanaModes.Katakana) {
         this.notifyBlank();
         return;
       } //If none selected
@@ -34,7 +34,7 @@ export class KanaComponent implements OnInit {
   }
 
   /* Configuration */
-  _kanaModes: kanaMode = { hiragana: false, katakana: false };
+  _kanaModes: kanaMode = { Hiragana: false, Katakana: false };
   _cheats = false;
   _kanaCount = 10;
   /* Active Objects */
@@ -48,8 +48,7 @@ export class KanaComponent implements OnInit {
   score: number = 0; //Counter for correct kana
   timer: number = 0;
   interval: any;
-  constructor(private _notify: NzNotificationService) {
-  }
+  constructor(private _notify: NzNotificationService) {}
 
   takeInput(val: any): void {
     if (this.state != GameState.Started) return; //No changes if not playing
@@ -60,10 +59,10 @@ export class KanaComponent implements OnInit {
   }
 
   startLogic(): void {
-    if (this._kanaModes.hiragana == true)
-      hiragana.map((val: any) => this.kanaDatabase.push(val));
-    if (this._kanaModes.katakana == true)
-      katakana.map((val: any) => this.kanaDatabase.push(val));
+    if (this._kanaModes.Hiragana == true)
+      hiraganaStore.map((val: any) => this.kanaDatabase.push(val));
+    if (this._kanaModes.Katakana == true)
+      katakanaStore.map((val: any) => this.kanaDatabase.push(val));
 
     console.log(this.kanaDatabase);
     this.getRandomKana();
