@@ -1,7 +1,10 @@
 <!-- Initial state & after game restart (configuration) -->
 <article nz-typography *ngIf="state == stateEnum.Stopped">
-  <h1 nz-typography style="color: #ee9643">Kana Study</h1>
-  <p nz-typography>'Description Here'</p>
+  <h1 nz-typography style="color: #ee9643">Kana Study クラーケン</h1>
+  <p nz-typography>
+    Basic Japanese alphabet learning & revision application with some
+    configuration. Configure and hit enter.
+  </p>
 
   <!-- Alphabet Selection-->
   <nz-row>
@@ -50,26 +53,6 @@
   <h1 class="gameCheat" *ngIf="_cheats">{{ randomKana.romanization }}</h1>
   <h1 class="gameCount">{{ score }}</h1>
 </article>
-
-<!-- Results output display - End of the game -->
-<!-- <article *ngIf="state == stateEnum.Ended" class="results">
-  <h1 class="title">Results</h1>
-  <h2>Average Time: {{ avgTime.toFixed(3) }}s per Kana</h2>
-  <div nz-row [nzGutter]="{ xs: 8, sm: 16, md: 24, lg: 32 }">
-    <div nz-col class="resultCard" [nzSpan]="4" *ngFor="let time of kanaTimes">
-      <nz-card nzHoverable [nzCover]="coverTemplate">
-        <ng-template #coverTemplate>
-          <h1 class="kanaSymbol">{{ time.character.character }}</h1>
-        </ng-template>
-        <nz-card-meta
-          class="kanaResult"
-          nzTitle="{{ time.character.romanization }}"
-          nzDescription="Time: {{ time.time }}s"
-        ></nz-card-meta>
-      </nz-card>
-    </div>
-  </div>
-</article> -->
 
 <article *ngIf="state == stateEnum.Ended" class="results">
   <h1 nz-typography>Results</h1>

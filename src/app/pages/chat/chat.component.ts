@@ -51,7 +51,6 @@ export class ChatComponent implements OnInit, AfterContentInit, AfterViewInit {
   /* Client to Server (Only author/message) */
   sendMsg() {
     this._chatService.messages.next(this.messageObject);
-    this.messageObject.message = '';
   }
   /* Auto scroll only when at the bottom */
   ngAfterViewInit() {
@@ -79,27 +78,16 @@ export class ChatComponent implements OnInit, AfterContentInit, AfterViewInit {
     this.isNearBottom = this.isUserNearBottom();
   }
 
-  /* Autoscroll End */
-
-  ngOnInit(): void {
-    this._chatService.messages.subscribe((msg: Message) => {
-      console.log(
-        'WS Server: ' +
-          msg.author?.name +
-          ': ' +
-          msg.body +
-          ' at ' +
-          msg.createdAt
-      );
-      console.log(this._chatService.messageList);
-    });
-  }
-
   private isUserNearBottom(): boolean {
     const threshold = 150;
     const position =
       this.scrollContainer.scrollTop + this.scrollContainer.offsetHeight;
     const height = this.scrollContainer.scrollHeight;
     return position > height - threshold;
+  }
+  /* Autoscroll End */
+
+  ngOnInit(): void {
+    this._chatService.messages.subscribe((msg: Message) => {});
   }
 }

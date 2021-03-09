@@ -9,13 +9,17 @@ import {
   ContentType,
 } from './websocket.model';
 import { environment } from '../../../environments/environment';
+import { NzNotificationService } from 'ng-zorro-antd/notification';
 
 @Injectable()
 export class ChatService {
   public messages: Subject<any>;
   public messageList: Message[] = [];
 
-  constructor(private _wsService: WebsocketService) {
+  constructor(
+    private _wsService: WebsocketService,
+    private _notify: NzNotificationService
+  ) {
     this.messages = <Subject<Content | ClientMessage>>(
       _wsService.connect(environment.WS_CHAT_URL).pipe(
         map(
@@ -24,7 +28,7 @@ export class ChatService {
             console.log(content);
             if (content.type == ContentType.Error) {
               /* Error Notifying */
-              console.log(content.data);
+              this.errorNotify(content.data.body);
             } else if (content.type == ContentType.Message) {
               /* Message Updating */
               this.messageList.push(content.data);
@@ -40,5 +44,12 @@ export class ChatService {
         )
       )
     );
+  }
+
+  errorNotify(message: string): void {
+    this._notify.error('What are you doing !?', message, {
+      nzDuration: 3500,
+      nzPlacement: 'topLeft',
+    });
   }
 }
