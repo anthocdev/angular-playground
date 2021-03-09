@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  WS_CHAT_URL: 'ws://192.168.0.13:3000/chat', //Websocket Connection for Chat
+  WS_CHAT_URL: 'wss://angular.cerneckis.com:3000', //Websocket Connection for Chat
 };
 
 /*
