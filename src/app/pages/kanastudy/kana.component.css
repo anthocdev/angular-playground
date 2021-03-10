@@ -42,10 +42,6 @@
   white-space: pre-wrap;
 }
 
-.gameInput:empty {
-  margin: 12.3vw;
-}
-
 .gameTimer {
 }
 

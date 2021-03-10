@@ -12,7 +12,7 @@ export class LocalStorageService {
 
   get(key: string): any {
     if (this.isSupported) {
-      return JSON.parse(this.localStorage.getItem(key) || '{}');
+      return JSON.parse(this.localStorage.getItem(key) || '');
     }
 
     return null;

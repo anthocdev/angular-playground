@@ -33,15 +33,16 @@ export class ChatComponent implements OnInit, AfterContentInit, AfterViewInit {
       message: [null, [Validators.maxLength(100)]],
     });
   }
-  /* Load username from local storage */
-  ngAfterContentInit(): void {
-    this.messageObject.author = this.localStorageService.get('wsUser');
-  }
 
   messageObject: ClientMessage = {
     message: '',
     author: '',
   };
+
+  /* Load username from local storage */
+  ngAfterContentInit(): void {
+    this.messageObject.author = this.localStorageService.get('wsUser');
+  }
 
   /* Store username in local storage */
   persistUsername(key: string, event: any) {
