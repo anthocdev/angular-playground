@@ -42,9 +42,6 @@
   white-space: pre-wrap;
 }
 
-.gameTimer {
-}
-
 .gameCheat {
   font-size: 40px;
   color: #d38943;
@@ -71,4 +68,8 @@
 .kanaSymbol {
   font-size: 4vw;
   color: #a76c35;
+}
+
+.restartButton {
+  margin-bottom: 4px;
 }

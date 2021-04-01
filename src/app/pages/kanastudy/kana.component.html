@@ -58,6 +58,15 @@
 <article *ngIf="state == stateEnum.Ended" class="results">
   <h1 nz-typography>Results</h1>
   <h3 nz-typography>Average Time: {{ avgTime.toFixed(3) }}s per Kana</h3>
+  <button
+    class="restartButton"
+    nz-button
+    nzSize="large"
+    nzType="primary"
+    (click)="restart()"
+  >
+    <i nz-icon nzType="primary"></i>Restart
+  </button>
   <nz-row>
     <nz-col class="resultCard" *ngFor="let time of kanaTimes">
       <nz-card nzHoverable>

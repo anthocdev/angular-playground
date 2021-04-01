@@ -64,6 +64,13 @@ export class KanaComponent implements OnInit {
     }
   }
 
+  restart(): void {
+    this.kanaDatabase = []; //Clear playable values
+    this.kanaTimes = []; //Clear time values
+    this.state = GameState.Stopped; //Back to initial game state
+    this.score = 0;
+  }
+
   startLogic(): void {
     if (this._kanaModes.Hiragana == true)
       hiraganaStore.map((val: any) => this.kanaDatabase.push(val));
