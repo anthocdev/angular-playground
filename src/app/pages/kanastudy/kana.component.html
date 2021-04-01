@@ -45,9 +45,10 @@
 </article>
 <!-- Display during gameplay -->
 <article nz-typography *ngIf="state == stateEnum.Started" class="kanaGame">
-  <nz-row style="align-items: center">
-    <h1 class="gameTimer" nz-typography>{{ timer.toFixed(2) }}</h1>
+  <nz-row style="text-align: right">
+    <h1>Press ESC to stop.</h1>
   </nz-row>
+  <h1 class="gameTimer" nz-typography>{{ timer.toFixed(2) }}</h1>
   <h1 class="gameChar">{{ randomKana.character }}</h1>
   <h1 class="gameInput">{{ roman }}</h1>
   <h1 class="gameCheat" *ngIf="_cheats">{{ randomKana.romanization }}</h1>

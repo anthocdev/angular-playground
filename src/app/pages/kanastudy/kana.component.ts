@@ -16,7 +16,7 @@ export class KanaComponent implements OnInit {
   }
   @HostListener('document:keydown', ['$event'])
   handleKeyDown(event: KeyboardEvent) {
-    //Backspace override
+    /* Starting a game - Enter override */
     if (event.key == 'Enter' && this.state == GameState.Stopped) {
       if (!this._kanaModes.Hiragana && !this._kanaModes.Katakana) {
         this.notifyBlank();
@@ -25,16 +25,22 @@ export class KanaComponent implements OnInit {
       this.state = GameState.Started;
       this.startLogic();
     }
-    if (event.keyCode === 8) {
+    /*Clearing text - Backspace override */
+    if (event.key === 'Backspace') {
       event.preventDefault();
       if (this.state != GameState.Started) return; //No changes if not playing
       if (this.roman.length > 0)
         this.roman = this.roman.slice(0, this.roman.length - 1);
     }
+    /*Stopping running session - Escape override*/
+    if (event.key === 'Escape') {
+      if (this.state !== GameState.Started) return;
+      this.state = GameState.Stopped;
+    }
   }
 
   /* Configuration */
-  _kanaModes: kanaMode = { Hiragana: false, Katakana: false };
+  _kanaModes: kanaMode = { Hiragana: true, Katakana: false };
   _cheats = false;
   _kanaCount = 10;
   /* Active Objects */
@@ -46,8 +52,8 @@ export class KanaComponent implements OnInit {
   avgTime: number = 0; //average time per kana
   roman: string = 'Key in romanization'; //Bound input
   score: number = 0; //Counter for correct kana
-  timer: number = 0;
-  interval: any;
+  timer: number = 0; //Timer for each kana
+  interval: any; //Interval calculation for timer
   constructor(private _notify: NzNotificationService) {}
 
   takeInput(val: any): void {
@@ -66,7 +72,7 @@ export class KanaComponent implements OnInit {
 
     console.log(this.kanaDatabase);
     this.getRandomKana();
-    this.startTimer(); //Start interval
+    this.startTimer(); //Start interval calculation
   }
   endLogic(): void {
     //When specific score is reached display timings (sorted);
@@ -89,10 +95,12 @@ export class KanaComponent implements OnInit {
   }
 
   startTimer(): void {
+    clearInterval(this.interval); //Prevent interval stacking
     this.interval = setInterval(() => {
       this.timer += 0.01;
     }, 10);
   }
+
   getRandomKana(): void {
     this.timer = 0; //Reset time
     this.randomKana = this.kanaDatabase[
